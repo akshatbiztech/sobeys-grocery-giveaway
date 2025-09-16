@@ -101,6 +101,8 @@ export const EventSlide: React.FC<EventSlideProps> = ({
           <Text style={styles.cardBody}>{item.subtitle || item.body}</Text>
         </View>
 
+        
+
         <PrimaryButton
           title={item.cta}
           onPress={onPress}

@@ -45,9 +45,9 @@ export const Tabs: React.FC<TabsProps> = ({ items, active, onChange }) => {
 const styles = StyleSheet.create({
   tabsWrap: { marginTop: 4 },
   tabsRow: { flexDirection: "row", justifyContent: "space-between" },
-  tabItem: { flex: 1, alignItems: "center", paddingVertical: 10 },
-  tabText: { fontSize: 14, color: "#4B5563", fontWeight: "600" },
-  tabTextActive: { color: COLORS.primary },
+  tabItem: { flex: 1, alignItems: "center",  },
+  tabText: { fontSize: 15, color: "#000000", fontWeight: "400" },
+  tabTextActive: { color: COLORS.primary, fontWeight: "700" },
   tabUnderline: {
     height: 3,
     borderRadius: 3,
