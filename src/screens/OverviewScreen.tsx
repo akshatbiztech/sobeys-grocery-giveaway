@@ -149,7 +149,11 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
       <EventCarousel
         items={sweepstakesSlides}
         onPressCTA={(item) => {
-          console.log("Sweepstakes CTA pressed:", item.title);
+          if (item.cta === "Enter Sweepstakes" && onNavigateToSweepstakes) {
+            onNavigateToSweepstakes();
+          } else {
+            console.log("Sweepstakes CTA pressed:", item.title);
+          }
         }}
         slideWidth={slideWidth}
         gap={gap}
