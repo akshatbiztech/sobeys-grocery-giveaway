@@ -157,7 +157,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* Weekly Challenges */}
       <SectionHeader
         title="Weekly Challenges"
         actionLabel="View all"
@@ -167,7 +166,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
         Carousel body text lorem ipsum ementum consectetur nulla dignissim.
       </Text>
 
-      {/* Carousel: each slide is its own card (no shared white background) */}
       <EventCarousel
         items={challengeSlides}
         onPressCTA={(item) => {
@@ -179,7 +177,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
         slidePaddingVertical={slidePaddingVertical}
       />
 
-      {/* Trivia Challenges */}
       <SectionHeader
         title="Trivia Challenges"
         actionLabel="View all"
@@ -199,7 +196,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
         slidePaddingVertical={slidePaddingVertical}
       />
 
-      {/* Upcoming Challenges */}
       <SectionHeader
         title="Upcoming Challenges"
         actionLabel="View all"
@@ -219,7 +215,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
         slidePaddingVertical={slidePaddingVertical}
       />
 
-      {/* Completed Challenges Card */}
       <CompletedChallengesCard
         onPress={() => {
           console.log("View completed challenges pressed");
@@ -230,8 +225,6 @@ export const ChallengesScreen: React.FC<ChallengesScreenProps> = ({
     </ScrollView>
   );
 };
-
-/* ---------- Styles ---------- */
 
 const styles = StyleSheet.create({
   scrollContent: {

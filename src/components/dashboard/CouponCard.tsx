@@ -33,7 +33,6 @@ export const CouponCard: React.FC<CouponCardProps> = ({
 }) => {
   return (
     <View style={[styles.couponCard, { width }]}>
-      {/* Header with validity and status */}
       <View style={styles.cardHeader}>
         <View style={styles.validityContainer}>
           <Image
@@ -68,7 +67,6 @@ export const CouponCard: React.FC<CouponCardProps> = ({
         </View>
       </View>
 
-      {/* Coupon Code Section */}
       <View style={styles.couponCodeSection}>
         <View style={styles.couponCodeContainer}>
           <Text style={styles.couponLabel}>Coupon Code</Text>
@@ -89,10 +87,8 @@ export const CouponCard: React.FC<CouponCardProps> = ({
         </View>
       </View>
 
-      {/* Earning Source */}
       <Text style={styles.earnedFrom}>Earned from '{item.earnedFrom}'</Text>
 
-      {/* Use Now Button */}
       <Pressable style={styles.useButton}>
         <Image
           source={linkIcon}

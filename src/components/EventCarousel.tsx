@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { View, FlatList, ViewToken, StyleSheet } from "react-native";
 import { EventSlide, EventSlideItem } from "./EventSlide";
 
@@ -24,6 +24,31 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({
     (_: { viewableItems: ViewToken[] }) => {}
   );
 
+  const maxSlideHeight = useMemo(() => {
+    const baseHeight = bannerHeight + slidePaddingVertical * 2;
+
+    const contentHeights = items.map((item) => {
+      let contentHeight = 0;
+
+      if (item.leftTag || item.middleTag || item.rightTag) {
+        contentHeight += 30;
+      }
+
+      const titleLines = Math.ceil(item.title.length / 25);
+      contentHeight += titleLines * 30;
+
+      const bodyText = item.subtitle || item.body || "";
+      const bodyLines = Math.ceil(bodyText.length / 35);
+      contentHeight += bodyLines * 20;
+
+      contentHeight += 50;
+
+      return baseHeight + contentHeight;
+    });
+
+    return Math.max(...contentHeights);
+  }, [items, bannerHeight, slidePaddingVertical]);
+
   return (
     <View style={styles.carouselWrap}>
       <FlatList
@@ -38,6 +63,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({
             width={slideWidth}
             paddingVertical={slidePaddingVertical}
             bannerHeight={bannerHeight}
+            fixedHeight={maxSlideHeight}
           />
         )}
         ItemSeparatorComponent={() => <View style={{ width: gap }} />}
@@ -60,5 +86,3 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({
 const styles = StyleSheet.create({
   carouselWrap: { marginBottom: 16 },
 });
-
-

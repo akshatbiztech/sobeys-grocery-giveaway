@@ -33,7 +33,6 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {/* Header with image */}
       <View style={styles.header}>
         <Image
           source={headerImage}
@@ -42,21 +41,16 @@ export const StatsCard: React.FC<StatsCardProps> = ({
         />
       </View>
 
-      {/* Main card container */}
       <View style={styles.card}>
-        {/* Title */}
         <Text style={styles.title}>{title}</Text>
 
-        {/* Description */}
         <Text style={styles.description}>{description}</Text>
 
-        {/* Stats display */}
         <View style={styles.statsContainer}>
           <Text style={styles.statsLabel}>{statsLabel}</Text>
           <Text style={styles.statsValue}>{statsValue}</Text>
         </View>
 
-        {/* Action button */}
         <TouchableOpacity style={styles.button} onPress={onButtonPress}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>

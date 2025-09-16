@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   Animated,
+  PanResponder,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { StatCard } from "../components/StatCard";
@@ -32,31 +33,28 @@ const COLORS = {
 type TabKey = "Overview" | "Challenges" | "Sweepstakes" | "Dashboard";
 
 const SCREEN_W = Dimensions.get("window").width;
-const OUTER_HPAD = 16; // ScrollView horizontal padding
-const GAP = 14; // gap between slides
-const PEEK = 28; // visible part of next slide
+const OUTER_HPAD = 16;
+const GAP = 14;
+const PEEK = 28;
 
-// Width available across the content (no outer card now)
 const INNER_W = SCREEN_W - OUTER_HPAD * 2;
-// Start from inner width minus a peek, then reduce by 5% to ensure a break
-const SLIDE_W = Math.round((INNER_W - PEEK) * 0.95);
+const SLIDE_W = Math.round((INNER_W - PEEK) * 0.87);
 
-// Heights (increased ~10%)
-const BANNER_H = 190; // was 140
-const SLIDE_PAD_V = 16; // was 12
+const BANNER_H = 190;
+const SLIDE_PAD_V = 16;
 
 export const HomeScreen: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>("Overview");
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
+  const tabs: TabKey[] = ["Overview", "Challenges", "Sweepstakes", "Dashboard"];
+
   const handleTabChange = (tab: TabKey) => {
-    // Fade out current content
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 150,
       useNativeDriver: true,
     }).start(() => {
-      // Change tab and fade in new content
       setActiveTab(tab);
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -65,6 +63,29 @@ export const HomeScreen: React.FC = () => {
       }).start();
     });
   };
+
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: (evt, gestureState) => {
+      return (
+        Math.abs(gestureState.dx) > Math.abs(gestureState.dy) &&
+        Math.abs(gestureState.dx) > 10
+      );
+    },
+    onPanResponderRelease: (evt, gestureState) => {
+      const swipeThreshold = 50;
+      const { dx } = gestureState;
+
+      if (Math.abs(dx) > swipeThreshold) {
+        const currentIndex = tabs.indexOf(activeTab);
+
+        if (dx > 0 && currentIndex > 0) {
+          handleTabChange(tabs[currentIndex - 1]);
+        } else if (dx < 0 && currentIndex < tabs.length - 1) {
+          handleTabChange(tabs[currentIndex + 1]);
+        }
+      }
+    },
+  });
 
   const renderTabContent = () => {
     const commonProps = {
@@ -96,7 +117,6 @@ export const HomeScreen: React.FC = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Stats Row */}
         <View style={styles.statsRow}>
           <StatCard
             icon={
@@ -106,7 +126,7 @@ export const HomeScreen: React.FC = () => {
                 resizeMode="contain"
               />
             }
-            label="Chips    Balance"
+            label="Chips            Balance"
             value="1,000"
           />
           <StatCard
@@ -128,20 +148,21 @@ export const HomeScreen: React.FC = () => {
                 resizeMode="contain"
               />
             }
-            label="My       Rewards"
+            label="My              Rewards"
             value=""
           />
         </View>
 
-        {/* Tabs */}
         <Tabs
           active={activeTab}
           onChange={handleTabChange}
           items={["Overview", "Challenges", "Sweepstakes", "Dashboard"]}
         />
 
-        {/* Tab Content with Animation */}
-        <Animated.View style={{ opacity: fadeAnim }}>
+        <Animated.View
+          style={{ opacity: fadeAnim }}
+          {...panResponder.panHandlers}
+        >
           {renderTabContent()}
         </Animated.View>
 
@@ -150,8 +171,6 @@ export const HomeScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
-
-/* ---------- Styles ---------- */
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: COLORS.primary },
@@ -169,6 +188,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bg,
   },
 
-  /* stats */
   statsRow: { flexDirection: "row", gap: 12, marginTop: 8, marginBottom: 12 },
 });

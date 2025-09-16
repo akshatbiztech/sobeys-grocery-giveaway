@@ -109,7 +109,6 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* Latest Challenges */}
       <SectionHeader
         title="Latest Challenges"
         actionLabel="View all"
@@ -120,7 +119,6 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
         chances to win.
       </Text>
 
-      {/* Carousel: each slide is its own card (no shared white background) */}
       <EventCarousel
         items={challengeSlides}
         onPressCTA={(item) => {
@@ -132,7 +130,6 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
         slidePaddingVertical={slidePaddingVertical}
       />
 
-      {/* Sweepstakes */}
       <SectionHeader
         title="Sweepstakes"
         actionLabel="View all"
@@ -156,8 +153,6 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
     </ScrollView>
   );
 };
-
-/* ---------- Styles ---------- */
 
 const styles = StyleSheet.create({
   scrollContent: {

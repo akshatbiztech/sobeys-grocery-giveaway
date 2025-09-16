@@ -27,7 +27,7 @@ const COLORS = {
   link: "#0D3A2C",
 };
 
-const OUTER_HPAD = 16; // ScrollView horizontal padding
+const OUTER_HPAD = 16;
 
 interface SweepstakesScreenProps {
   slideWidth: number;
@@ -75,17 +75,11 @@ export const SweepstakesScreen: React.FC<SweepstakesScreenProps> = ({
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* Sweepstakes */}
-      <SectionHeader
-        title="Sweepstakes"
-        actionLabel="View all"
-        onPressAction={() => {}}
-      />
+      <SectionHeader title="Sweepstakes" />
       <Text style={styles.sectionDescription}>
         Carousel body text lorem ipsum ementum consectetur nulla dignissim.
       </Text>
 
-      {/* Sweepstakes Cards - Direct EventSlide components */}
       <View style={styles.sweepstakesContainer}>
         {sweepstakesSlides.map((item, index) => (
           <EventSlide
@@ -106,13 +100,12 @@ export const SweepstakesScreen: React.FC<SweepstakesScreenProps> = ({
   );
 };
 
-/* ---------- Styles ---------- */
-
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: OUTER_HPAD,
     paddingBottom: 12,
     backgroundColor: COLORS.bg,
+    flexGrow: 1,
   },
 
   sectionDescription: {
@@ -124,5 +117,9 @@ const styles = StyleSheet.create({
   },
   sweepstakesContainer: {
     gap: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    minHeight: 400,
   },
 });

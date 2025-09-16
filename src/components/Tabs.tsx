@@ -57,5 +57,3 @@ const styles = StyleSheet.create({
   },
   tabsDivider: { height: 1, backgroundColor: COLORS.border },
 });
-
-

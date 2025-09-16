@@ -13,9 +13,9 @@ const COLORS = {
 export type EventSlideItem = {
   id: string;
   title: string;
-  subtitle?: string; // For challenges
-  body?: string; // For sweepstakes
-  image: any; // local require or {uri}
+  subtitle?: string;
+  body?: string;
+  image: any;
   leftTag?: { text: string; icon?: any };
   middleTag?: { text: string; icon?: any };
   rightTag?: { text: string };
@@ -29,6 +29,7 @@ interface EventSlideProps {
   width: number;
   paddingVertical: number;
   bannerHeight: number;
+  fixedHeight?: number;
 }
 
 export const EventSlide: React.FC<EventSlideProps> = ({
@@ -37,107 +38,114 @@ export const EventSlide: React.FC<EventSlideProps> = ({
   width,
   paddingVertical,
   bannerHeight,
+  fixedHeight,
 }) => {
   return (
-    <View style={[styles.slideCard, { width, paddingVertical }]}>
-      {item.completed && (
-        <View style={styles.completedBadge}>
-          <Image
-            source={tickIcon}
-            style={styles.tickIcon}
-            resizeMode="contain"
-          />
-          <Text style={styles.completedText}>Completed</Text>
-        </View>
-      )}
-      <View style={styles.bannerContainer}>
+    <View style={[styles.container, { width, height: fixedHeight }]}>
+      <View style={styles.header}>
         <ImageBackground
           source={item.image}
           style={[styles.banner, { height: bannerHeight }]}
           imageStyle={styles.bannerImage}
         />
         {item.completed && (
-          /* Tint overlay */
           <View style={[styles.tintOverlay, { height: bannerHeight }]} />
+        )}
+        {item.completed && (
+          <View style={styles.completedBadge}>
+            <Image
+              source={tickIcon}
+              style={styles.tickIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.completedText}>Completed</Text>
+          </View>
         )}
       </View>
 
-      {/* Tags - only show if they exist */}
-      {(item.leftTag || item.middleTag || item.rightTag) && (
-        <View style={styles.tagsRow}>
-          {item.leftTag ? (
-            <ChipTag
-              text={item.leftTag.text}
-              backgroundColor="#0D3A2C"
-              textColor="#FFFFFF"
-              icon={
-                item.leftTag.icon ? (
-                  <Image
-                    source={item.leftTag.icon}
-                    style={{ width: 14, height: 14 }}
-                    resizeMode="contain"
-                  />
-                ) : undefined
-              }
-            />
-          ) : null}
-          {item.middleTag ? (
-            <Image source={item.middleTag.icon} resizeMode="contain" />
-          ) : null}
-          {item.rightTag ? (
-            <ChipTag
-              text={item.rightTag.text}
-              backgroundColor="#FFFFFF"
-              textColor="#111827"
-            />
-          ) : null}
+      <View style={[styles.card, { paddingVertical, flex: 1 }]}>
+        <View style={styles.contentContainer}>
+          {(item.leftTag || item.middleTag || item.rightTag) && (
+            <View style={styles.tagsRow}>
+              {item.leftTag ? (
+                <ChipTag
+                  text={item.leftTag.text}
+                  backgroundColor="#0D3A2C"
+                  textColor="#FFFFFF"
+                  icon={
+                    item.leftTag.icon ? (
+                      <Image
+                        source={item.leftTag.icon}
+                        style={{ width: 14, height: 14 }}
+                        resizeMode="contain"
+                      />
+                    ) : undefined
+                  }
+                />
+              ) : null}
+              {item.middleTag ? (
+                <Image source={item.middleTag.icon} resizeMode="contain" />
+              ) : null}
+              {item.rightTag ? (
+                <ChipTag
+                  text={item.rightTag.text}
+                  backgroundColor="#FFFFFF"
+                  textColor="#111827"
+                />
+              ) : null}
+            </View>
+          )}
+
+          <Text style={styles.cardTitle}>{item.title}</Text>
+
+          <Text style={styles.cardBody}>{item.subtitle || item.body}</Text>
         </View>
-      )}
 
-      <Text style={styles.cardTitle}>{item.title}</Text>
-
-      {/* Use subtitle for challenges, body for sweepstakes */}
-      <Text style={styles.cardBody}>{item.subtitle || item.body}</Text>
-
-      <PrimaryButton
-        title={item.cta}
-        onPress={onPress}
-        disabled={item.completed}
-      />
+        <PrimaryButton
+          title={item.cta}
+          onPress={onPress}
+          disabled={item.completed}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  slideCard: {
-    backgroundColor: COLORS.card,
+  container: {
     borderRadius: 16,
-    paddingHorizontal: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
+    overflow: "hidden",
+    borderWidth: 1.5,
+    borderColor: "#E5E7EB",
+    shadowColor: "#000000",
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
     shadowOffset: { width: 0, height: 3 },
     elevation: 3,
   },
-  bannerContainer: {
+  header: {
     position: "relative",
-    marginBottom: 10,
+    overflow: "hidden",
   },
-  banner: { borderRadius: 12 },
-  bannerImage: { borderRadius: 12 },
+  banner: {
+    width: "100%",
+  },
+  bannerImage: {
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
   tintOverlay: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     backgroundColor: "#C4C4C4",
-    borderRadius: 12,
     opacity: 0.8,
   },
   completedBadge: {
     position: "absolute",
-    top: 4,
-    left: 4,
+    top: 8,
+    left: 8,
     backgroundColor: "#00C851",
     borderRadius: 7,
     paddingHorizontal: 10,
@@ -161,6 +169,16 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "600",
+  },
+  card: {
+    backgroundColor: COLORS.card,
+    paddingHorizontal: 12,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    justifyContent: "space-between",
+  },
+  contentContainer: {
+    flex: 1,
   },
   tagsRow: { flexDirection: "row", gap: 8, marginBottom: 10 },
   cardTitle: {

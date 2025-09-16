@@ -15,9 +15,9 @@ const COLORS = {
   link: "#0D3A2C",
 };
 
-const OUTER_HPAD = 16; // ScrollView horizontal padding
+const OUTER_HPAD = 16;
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const COUPON_CARD_WIDTH = SCREEN_WIDTH * 0.65; // 72% of screen width for each coupon card (reduced by 15%)
+const COUPON_CARD_WIDTH = SCREEN_WIDTH * 0.65;
 const COUPON_GAP = 12;
 
 interface DashboardScreenProps {
@@ -33,7 +33,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   bannerHeight,
   slidePaddingVertical,
 }) => {
-  // Sample coupon data
   const couponItems: CouponCardItem[] = [
     {
       id: "c1",
@@ -60,17 +59,14 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
   const handleCopyCode = (code: string) => {
     console.log("Copied code:", code);
-    // Here you would implement actual clipboard functionality
   };
 
   const handleFreeProductsPress = () => {
     console.log("Free Products button pressed");
-    // Navigate to free products screen
   };
 
   const handleScenePointsPress = () => {
     console.log("Scene+ Points button pressed");
-    // Navigate to Scene+ points screen
   };
 
   return (
@@ -89,7 +85,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         gap={COUPON_GAP}
       />
 
-      {/* Free Products Stats Card */}
       <StatsCard
         headerImage={freeImage}
         title="Free Products"
@@ -100,7 +95,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         onButtonPress={handleFreeProductsPress}
       />
 
-      {/* Scene+ Points Stats Card */}
       <StatsCard
         headerImage={sceneImage}
         title="Scene+ Points"
@@ -114,12 +108,10 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   );
 };
 
-/* ---------- Styles ---------- */
-
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: OUTER_HPAD,
-    paddingTop: 24,
+    marginTop: 16,
     paddingBottom: 12,
     backgroundColor: COLORS.bg,
   },

@@ -27,7 +27,6 @@ export const VoilaCard: React.FC<VoilaCardProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {/* Header with Voila branding */}
       <View style={styles.header}>
         <Image
           source={voilaTextImage}
@@ -36,15 +35,12 @@ export const VoilaCard: React.FC<VoilaCardProps> = ({
         />
       </View>
 
-      {/* Main card container */}
       <View style={styles.card}>
-        {/* Title and subtitle */}
         <View style={styles.titleSection}>
           <Text style={styles.title}>Voila Free Delivery Coupons</Text>
           <Text style={styles.subtitle}>{items.length} vouchers available</Text>
         </View>
 
-        {/* Coupon carousel */}
         <CouponCarousel
           items={items}
           onCopyCode={onCopyCode}
