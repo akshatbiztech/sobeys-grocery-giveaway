@@ -97,7 +97,13 @@ export const HomeScreen: React.FC = () => {
 
     switch (activeTab) {
       case "Overview":
-        return <OverviewScreen {...commonProps} />;
+        return (
+          <OverviewScreen
+            {...commonProps}
+            onNavigateToChallenges={() => handleTabChange("Challenges")}
+            onNavigateToSweepstakes={() => handleTabChange("Sweepstakes")}
+          />
+        );
       case "Challenges":
         return <ChallengesScreen {...commonProps} />;
       case "Sweepstakes":
@@ -150,6 +156,7 @@ export const HomeScreen: React.FC = () => {
             }
             label="My              Rewards"
             value=""
+            onPress={() => handleTabChange("Dashboard")}
           />
         </View>
 

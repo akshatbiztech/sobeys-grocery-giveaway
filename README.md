@@ -4,8 +4,7 @@
 
 Watch the app demonstration video:
 
-[![Grocery Giveaways Demo](https://img.shields.io/badge/📹-Watch%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1ZkuorUeyZCHIXTsoQ1qSENSexxalDZtX/view?usp=drive_link)
-
+[![Grocery Giveaways Demo](https://img.shields.io/badge/📹-Watch%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1uWK0h-W48jguhOoeyLkzKb-4ib1z6oRZ/view?usp=drive_link)
 
 A React Native mobile application built with Expo that provides users with grocery shopping rewards, challenges, and sweepstakes opportunities.
 
@@ -65,7 +64,6 @@ npm run android
 # Web
 npm run web
 ```
-
 
 ## 📁 Project Structure
 

@@ -36,6 +36,8 @@ interface OverviewScreenProps {
   gap: number;
   bannerHeight: number;
   slidePaddingVertical: number;
+  onNavigateToChallenges?: () => void;
+  onNavigateToSweepstakes?: () => void;
 }
 
 export const OverviewScreen: React.FC<OverviewScreenProps> = ({
@@ -43,6 +45,8 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
   gap,
   bannerHeight,
   slidePaddingVertical,
+  onNavigateToChallenges,
+  onNavigateToSweepstakes,
 }) => {
   const challengeSlides: EventSlideItem[] = [
     {
@@ -112,7 +116,7 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
       <SectionHeader
         title="Latest Challenges"
         actionLabel="View all"
-        onPressAction={() => {}}
+        onPressAction={onNavigateToChallenges}
       />
       <Text style={styles.sectionDescription}>
         Complete weekly challenges, answer trivia, and check back for more
@@ -122,7 +126,11 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
       <EventCarousel
         items={challengeSlides}
         onPressCTA={(item) => {
-          console.log("Challenge CTA pressed:", item.title);
+          if (item.cta === "Start Challenge" && onNavigateToChallenges) {
+            onNavigateToChallenges();
+          } else {
+            console.log("Challenge CTA pressed:", item.title);
+          }
         }}
         slideWidth={slideWidth}
         gap={gap}
@@ -133,7 +141,7 @@ export const OverviewScreen: React.FC<OverviewScreenProps> = ({
       <SectionHeader
         title="Sweepstakes"
         actionLabel="View all"
-        onPressAction={() => {}}
+        onPressAction={onNavigateToSweepstakes}
       />
       <Text style={styles.sectionDescription}>
         Carousel body text lorem ipsum ementum consectetur nulla dignissim.

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 const COLORS = {
   primary: "#0D3A2C",
@@ -13,15 +13,27 @@ interface StatCardProps {
   icon: React.ReactNode;
   label: string;
   value: string;
+  onPress?: () => void;
 }
 
-export const StatCard: React.FC<StatCardProps> = ({ icon, label, value }) => {
+export const StatCard: React.FC<StatCardProps> = ({
+  icon,
+  label,
+  value,
+  onPress,
+}) => {
+  const CardComponent = onPress ? Pressable : View;
+
   return (
-    <View style={styles.statCard}>
+    <CardComponent
+      style={styles.statCard}
+      onPress={onPress}
+      disabled={!onPress}
+    >
       <View style={styles.statIcon}>{icon}</View>
       <Text style={styles.statLabel}>{label}</Text>
       <Text style={styles.statValue}>{value || " "}</Text>
-    </View>
+    </CardComponent>
   );
 };
 
